@@ -8,7 +8,6 @@ const LoginView = () => {
   const { push, query } = useRouter();
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState("");
-
   const callbackUrl: any = query.callbackUrl || "/";
 
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
@@ -16,6 +15,7 @@ const LoginView = () => {
     setIsLoading(true);
     setError("");
     const form = event.target as HTMLFormElement;
+    console.log(callbackUrl);
     try {
       const res = await signIn("credentials", {
         redirect: false,
@@ -66,6 +66,14 @@ const LoginView = () => {
             className="bg-blue-500 text-white w-full py-2 rounded-lg"
           >
             {isLoading ? "Loading..." : "Login"}
+          </button>
+          <hr className="mb-3" />
+          <button
+            type="submit"
+            onClick={() => signIn("google", { callbackUrl, redirect: false })}
+            className="mt-2 bg-blue-500 text-white w-full py-2 rounded-lg"
+          >
+            Login With Google
           </button>
         </form>
       </div>
